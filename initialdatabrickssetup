@@ -19,3 +19,16 @@ launching databricks workspace and creating a test notebook
 4. give the notebook a good name, type some python commands and click run cell to make sure it runs okay. then click on "main" branch on top and commit the changes and verify if your git repo in github shows the changes or not. if you have linked your databricks account with your github account and installed the databricks app in github, it should work just fine.
 5. you can even import databricks notebooks you might have created offline into the databricks workspace using the file --> import option. databricks notebooks have a .dbc extension.
 
+-------------
+
+creating the compute spark cluster
+
+1. go in your databricks and launch workspace
+2. click compute -> click create compute
+3. give the compute a name. i gave single-node-dev-cluster
+4. choose single node radio button
+5. for runtime version choose any LTS version (lts = long time support)
+6. choose node type as cheapest one. i chose: standard_ds3_v2 with 14 gb memory, 4 cores
+7. changed terminate after 10 mins of inactivity instead of 120
+8. click create compute
+
