@@ -6,3 +6,16 @@
 6. next create a azure storage account in this resource group (azure storage is similar to gcs or s3). i created databrickscourse2025-resourcegroup-dev. choose US east region. choose redundancy as LRS to save on costs. under the advanced tab, check the option: "Enable hierarchical namespace"(this option allows us to store data in folders/subfolders). make sure "enable public access from all networks" is chosen under networking. disable/uncheck the soft delete options under data protection to save on costs. choose defaults for other settings and then click review and create.
 7. go under the azure storage account you created and create different containers (containers are like folders). we are going to follow the medallian architecture (bronze for raw data, silver for standardized data and gold for bi/user consumption). i created four containers: bronze-dev, silver-dev, gold-dev and finally working-labs-dev as scratch area.
 
+-----------
+create a new git repo and clone it to pycharm
+install the databricks app and give this app all access to all your repos. link here: https://github.com/apps/databricks
+
+-----------
+launching databricks workspace and creating a test notebook
+
+1. go under the databricks account you created....databricks-dev and then click on launch workspace. in top right click on your name -> settings -> linked accounts -> under git integration, do the integration with your git username and your password. this action basically links your databricks workspace with your git account
+2. click on workspace a right panel will open. go under workspace -> users -> your email -> click on create -> git folder -> supply your .git https url, select git provider as git hub, git folder name will be same as repo name and then click on create git folder
+3. next go under workspace -> users -> your email -> git folder name -> right click on this -> create -> notebook. now the notebook interface will open
+4. give the notebook a good name, type some python commands and click run cell to make sure it runs okay. then click on "main" branch on top and commit the changes and verify if your git repo in github shows the changes or not. if you have linked your databricks account with your github account and installed the databricks app in github, it should work just fine.
+5. you can even import databricks notebooks you might have created offline into the databricks workspace using the file --> import option. databricks notebooks have a .dbc extension.
+
