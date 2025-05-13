@@ -3,7 +3,9 @@
 # MAGIC ##### Source File Details
 # MAGIC Source File URL : "https://retailpricing.blob.core.windows.net/labs/lab1/PW_MW_DR_01012023.csv"
 # MAGIC
-# MAGIC Source File Ingestion Path : "abfss://working-labs@datalakestorageaccountname.dfs.core.windows.net/bronze/daily-pricing/csv"
+# MAGIC Source File Ingestion Path Standard : "abfss://containername@storageaccountname.dfs.core.windows.net/foldername/subfoldername/subfoldername"
+# MAGIC
+# MAGIC Source File Ingestion Path : "abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv"
 # MAGIC
 # MAGIC ##### Python Core Library Documentation
 # MAGIC - <a href="https://pandas.pydata.org/docs/user_guide/index.html#user-guide" target="_blank">pandas</a>
@@ -16,4 +18,38 @@
 # COMMAND ----------
 
 storageAccountKey=''
-spark.conf.set("fs.azure.account.key.adlsadbdatalakehousedev.dfs.core.windows.net",storageAccountKey)
+spark.conf.set("fs.azure.account.key.dbrkcourse2025storagedev.dfs.core.windows.net",storageAccountKey)
+
+# COMMAND ----------
+
+import pandas
+
+# COMMAND ----------
+
+sourceFileURL='https://retailpricing.blob.core.windows.net/labs/lab1/PW_MW_DR_01012023.csv'
+bronzeLayerCSVFilePath='abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv'
+
+# COMMAND ----------
+
+pandas.read_csv(sourceFileURL)
+
+# COMMAND ----------
+
+sourceFilePandasDF=pandas.read_csv(sourceFileURL)
+
+# COMMAND ----------
+
+spark.createDataFrame(sourceFilePandasDF)
+
+# COMMAND ----------
+
+sourceFileSparkDF=spark.createDataFrame(sourceFilePandasDF)
+
+# COMMAND ----------
+
+print(sourceFilePandasDF)
+display(sourceFileSparkDF)
+
+# COMMAND ----------
+
+sourceFileSparkDF.write.mode('overwrite').csv(bronzeLayerCSVFilePath)
