@@ -1,5 +1,9 @@
 # Databricks notebook source
 # MAGIC %md
+# MAGIC ##### Goal of this Notebook
+# MAGIC  In this lesson, we are reading a CSV file from a webURL, putting that data in a pandas dataframe, convert that dataframe to a spark dataframe and finally writing that spark dataframe to storage account
+# MAGIC
+# MAGIC
 # MAGIC ##### Source File Details
 # MAGIC Source File URL : "https://retailpricing.blob.core.windows.net/labs/lab1/PW_MW_DR_01012023.csv"
 # MAGIC
