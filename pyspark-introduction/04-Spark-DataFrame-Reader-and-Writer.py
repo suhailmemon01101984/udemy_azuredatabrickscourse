@@ -2,7 +2,7 @@
 # DBTITLE 0,--i18n-ef4d95c5-f516-40e2-975d-71fc17485bba
 # MAGIC %md
 # MAGIC ##### Goal of this Notebook
-# MAGIC  In this lesson, we are reading a set of csv files from storage account, applying a schema and writing the data back to storage account in json format
+# MAGIC  In this lesson, we are reading a set of csv files from storage account, applying a schema and writing the data back to storage account in json format plus also writing the data back to storage account in csv format with header
 # MAGIC
 # MAGIC
 # MAGIC
