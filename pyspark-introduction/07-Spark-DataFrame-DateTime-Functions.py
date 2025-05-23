@@ -2,10 +2,16 @@
 # DBTITLE 0,--i18n-ef4d95c5-f516-40e2-975d-71fc17485bba
 # MAGIC %md
 # MAGIC
-# MAGIC ##### Read CSV File from Azure Data Lake Storage Account
-# MAGIC  CSV Source File Path : "abfss://working-labs@datalakestorageaccountname.dfs.core.windows.net/bronze/daily-pricing/csv"
+# MAGIC ##### Goal of this Notebook
+# MAGIC  In this lesson, we are reading a set of parquet files from storage account using load method and then adding a column with value as currenttimestamp. then we perform different datetime operations on this column and create new columns. for eg: get the year, get the month, get the day of month, concatenating these 3 to form a date, using date_format to format a timestamp value to a date with a specific format, converting a column with string datatype to a date datatype and using date_format to display the resulting date into a specific format
 # MAGIC
-# MAGIC JSON  File Path : "abfss://working-labs@datalakestorageaccountname.dfs.core.windows.net/bronze/daily-pricing/json"
+# MAGIC
+# MAGIC ##### Read CSV File from Azure Data Lake Storage Account
+# MAGIC CSV Source File Path : "abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv"
+# MAGIC
+# MAGIC JSON File Path : "abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/json"
+# MAGIC
+# MAGIC PARQUET Target  File Path : "abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/parquet"
 # MAGIC
 # MAGIC
 # MAGIC ##### Spark Methods
@@ -40,3 +46,43 @@
 # MAGIC | Q/q    | quarter-of-year | number/text  | 3; 03; Q3; 3rd quarter |
 # MAGIC | E      | day-of-week     | text         | Tue; Tuesday           |
 # MAGIC
+
+# COMMAND ----------
+
+storageAccountKey=''
+spark.conf.set("fs.azure.account.key.dbrkcourse2025storagedev.dfs.core.windows.net",storageAccountKey)
+
+# COMMAND ----------
+
+sourceCSVFilePath='abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv'
+sourcePARQUETFilePath='abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/parquet'
+
+# COMMAND ----------
+
+sourcePARQUETFileDF=spark.read.format("parquet").load(sourcePARQUETFilePath)
+
+# COMMAND ----------
+
+from pyspark.sql import functions as func
+
+sourcePARQUETTransFileDF=sourcePARQUETFileDF.withColumn("datalake_file_load_date",func.current_timestamp())
+
+
+# COMMAND ----------
+
+display(sourcePARQUETTransFileDF)
+
+# COMMAND ----------
+
+sourcePARQUETTransFileDF.select("datalake_file_load_date","DATE_OF_PRICING").\
+withColumn("datalake_file_load_date_year",func.year("datalake_file_load_date")).\
+withColumn("datalake_file_load_date_month",func.month("datalake_file_load_date")).\
+withColumn("datalake_file_load_date_dayofmonth",func.dayofmonth("datalake_file_load_date")).\
+withColumn("datalake_file_load_date_format",func.concat(func.year("datalake_file_load_date"),func.month("datalake_file_load_date"),func.dayofmonth("datalake_file_load_date"))).\
+withColumn("datalake_file_load_date_format2",func.date_format("datalake_file_load_date","yyyy-MM-dd")).\
+withColumn("PRICING_DATE",func.to_date("DATE_OF_PRICING","dd/MM/yyyy")).\
+withColumn("PRICING_DATE_FORMAT",func.date_format("PRICING_DATE","yyyyMMdd")).display()  
+
+# COMMAND ----------
+
+
