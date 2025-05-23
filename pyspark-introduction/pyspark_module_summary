@@ -1,0 +1,61 @@
+Why we are using PySpark and not Using Python in data analytics Projects?
+Python
+
+General purpose programming language and  process multiple transactions with small size data quickly
+
+Used in Web based transactional systems design and normally suited for OLTP systems design
+
+PySpark
+
+Uses Apache Spark Engine specially designed for large scale data processing
+
+Uses Distributed Compute engine to process large scale data efficiently
+
+Best suited for Data Analytical projects as data involves is always huge
+
+How to read data from the source files got different delimiters(not comma)?
+We need to use the options keyword in spark. Read function to specify the different delimiters. e.g to read source file having pipe(|) as delimiter we need to use below code
+
+sourceCSVFileDF = ( spark.
+                   read.
+                   option("header","true").
+                   option("delimiter","|").
+                   csv(sourceCSVFilePath)
+                   )
+How to create new column in dataframe from available source columns?
+We need to use the withColumn keyword in source Dataframe to add new column into the dataframe. If we need to derive new column based on some operation on existing columns then we need to import col
+
+function from pyspark.sql.functions package to derive the expression. refer below code for example.
+
+from pyspark.sql.functions import col
+(sourceCSVFileDF.
+ withColumn("ARRIVALS_IN_KILOGRAMS" , col("ARRIVAL_IN_TONNES") * 1000)
+)
+  How to read dataframe from fixed width source columns(Source columns are separated by length of data without any delimiter between the columns)?
+If we know exact length and data type of the source file column names then we can define the schema for source file with specific data type and length and pass it into sparl.read.csv method using schema option. Refer example code for this.
+
+sourceFixedWidthFileDF = ( spark.
+                   read.
+                   schema(sourceFixedWidtheFileSchemaDDL).
+                   csv(sourceFixedWidthFilePath)
+)
+
+
+Other way to handle this type of data is , We need to do some pre-processing of the data to handle this type of source data. Define first dataframe reads all columns as one line per row and in the second dataframe split each individual columns using substr function .
+
+Reading entire row as one line naturally happens when we use standard spark.read.csv method as there is no delimiter all of the column values read as one line
+
+  Many code writing questions related to Joining two dataframes and aggregating data in source dataframe?
+There is sample code available for Aggregation in this module and Joining Dataframes are covered in the Sections 14&16(We will revisit  the joins at the Module Summary of those lessons). Please refer PySpark aggregation sample code and try to remember when groupBy function comes and where we apply aggregation function. Also remember we need to import aggregation functions from pyspark.sql.functions package before use it.
+
+from pyspark.sql.functions import sum
+(sourceCSVFileTransDF.
+groupBy("STATE_NAME","PRODUCT_NAME").
+agg(sum("ARRIVALS_IN_KILOGRAMS")).
+        show())
+  How to run (or) Write the code using PySpark and Spark SQL in the same notebook?
+This is the easiest one as we need to use magic commands %py to run PySpark code and use %sql to run Spark SQL code
+
+  How to check the files existing on Cloud Storage account from notebook(Without opening Cloud Storage Account)?
+we can use dbutils.fs command to view the files in Cloud storage account from databricks notebook
+
