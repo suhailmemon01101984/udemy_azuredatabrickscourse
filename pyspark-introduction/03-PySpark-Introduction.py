@@ -22,7 +22,7 @@
 # COMMAND ----------
 
 storageAccountKey=''
-spark.conf.set("fs.azure.account.key.dbrkcourse2025storagedev.dfs.core.windows.net",storageAccountKey)
+spark.conf.set("fs.azure.account.key.dbrkcrse20251storagedev.dfs.core.windows.net",storageAccountKey)
 
 # COMMAND ----------
 
@@ -31,7 +31,7 @@ import pandas
 # COMMAND ----------
 
 sourceFileURL='https://retailpricing.blob.core.windows.net/labs/lab1/PW_MW_DR_01012023.csv'
-bronzeLayerCSVFilePath='abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv'
+bronzeLayerCSVFilePath='abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv'
 
 # COMMAND ----------
 
