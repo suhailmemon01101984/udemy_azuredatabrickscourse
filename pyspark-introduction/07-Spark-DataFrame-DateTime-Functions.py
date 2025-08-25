@@ -50,12 +50,12 @@
 # COMMAND ----------
 
 storageAccountKey=''
-spark.conf.set("fs.azure.account.key.dbrkcourse2025storagedev.dfs.core.windows.net",storageAccountKey)
+spark.conf.set("fs.azure.account.key.dbrkcrse20251storagedev.dfs.core.windows.net",storageAccountKey)
 
 # COMMAND ----------
 
-sourceCSVFilePath='abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv'
-sourcePARQUETFilePath='abfss://working-labs-dev@dbrkcourse2025storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/parquet'
+sourceCSVFilePath='abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv'
+sourcePARQUETFilePath='abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/parquet'
 
 # COMMAND ----------
 
@@ -85,4 +85,4 @@ withColumn("PRICING_DATE_FORMAT",func.date_format("PRICING_DATE","yyyyMMdd")).di
 
 # COMMAND ----------
 
-
+sourcePARQUETTransFileDF.display()
