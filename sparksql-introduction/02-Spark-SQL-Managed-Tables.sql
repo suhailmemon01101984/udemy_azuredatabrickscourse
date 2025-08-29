@@ -86,3 +86,7 @@ drop table daily_pricing_csv_managed
 -- COMMAND ----------
 
 desc extended daily_pricing_csv_managed
+
+-- COMMAND ----------
+
+drop table daily_pricing_csv_managed
