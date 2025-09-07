@@ -66,6 +66,20 @@ desc extended daily_pricing_json_external_table
 
 -- COMMAND ----------
 
+--before running below code first go to azure portal -> Access Connector for Azure Databricks --> hit create to create the connector --> give resource group as databrickscourse2025_1-resourcegroup-dev -> give name as bronzedevconnector and leave everything else as default and create the connector. next click on your connector and copy the value of resource id and store it in a textpad -> next go inside databricks --> catalog --> click on external data --> go under credentials --> create credential -> give credential name: bronze_dev_cred -> for the access connector id field, paste the resource id value -> then hit create -> then go under your azure storage account dbrkcrse20251storagedev -> access control -> role assignment -> add role assigment -> search for Storage Blob Data Owner -> hit next -> change option of assigned access to "managed identity" -> select members -> under managed identiy dropdown choose "access connector for azure databricks" --> choose bronzedevconnector -->click select -->click review and assign -> now this role is assigned to your access connector bronzedevconnector. now wait for 5 mins and run below sql:
+
+CREATE EXTERNAL LOCATION bronze_dev_loc
+URL 'abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze-dev'
+WITH (STORAGE CREDENTIAL `bronze_dev_cred`)
+COMMENT 'External location for bronze dev data'
+
+
+-- COMMAND ----------
+
+grant read files on external location bronze_dev_loc to `databrickscourse2025_1@outlook.com`
+
+-- COMMAND ----------
+
 create table daily_pricing_csv_external_table
 (
 DATE_OF_PRICING	string,
@@ -83,4 +97,8 @@ MODAL_PRICE	string
 )
 using csv
 options (header="true",delimiter=",")
-location "${sourceCSVFilePath}"
+location "abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv"
+
+-- COMMAND ----------
+
+desc extended daily_pricing_csv_external_table
