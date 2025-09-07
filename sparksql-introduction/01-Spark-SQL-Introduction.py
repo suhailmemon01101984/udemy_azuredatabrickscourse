@@ -2,11 +2,11 @@
 # MAGIC %md
 # MAGIC ##### Data File Path in DataLake Storage Account
 # MAGIC
-# MAGIC CSV Source File Path : "abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze/daily-pricing/csv"
+# MAGIC CSV Source File Path : "abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/csv"
 # MAGIC
-# MAGIC JSON Source  File Path : "abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze/daily-pricing/json"
+# MAGIC JSON Source  File Path : "abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/json"
 # MAGIC
-# MAGIC PARQUET Source  File Path : "abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze/daily-pricing/parquet"
+# MAGIC PARQUET Source  File Path : "abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/bronze-dev/daily-pricing/parquet"
 # MAGIC
 # MAGIC
 # MAGIC ###### Spark Session Methods
