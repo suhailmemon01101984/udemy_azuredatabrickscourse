@@ -106,3 +106,9 @@ desc extended daily_pricing_csv_external_table
 -- COMMAND ----------
 
 select * from daily_pricing_csv_external_table
+
+-- COMMAND ----------
+
+drop view daily_pricing_json_external_vw;
+drop table daily_pricing_json_external_table;
+DROP TABLE IF EXISTS databricks_dev.default.daily_pricing_csv_external_table;
