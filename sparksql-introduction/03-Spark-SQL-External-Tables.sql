@@ -102,3 +102,7 @@ location "abfss://working-labs-dev@dbrkcrse20251storagedev.dfs.core.windows.net/
 -- COMMAND ----------
 
 desc extended daily_pricing_csv_external_table
+
+-- COMMAND ----------
+
+select * from daily_pricing_csv_external_table
