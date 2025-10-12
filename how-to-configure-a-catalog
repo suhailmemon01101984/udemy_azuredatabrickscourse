@@ -1,0 +1,14 @@
+here are the broad steps:
+
+1. create a storage account
+2. create a container inside the storage account
+3. configure a databricks access connector
+4. grant this databricks access connector storage data contributor role (or storage data owner role) on the storage account
+5. go inside databricks and create a credential using the resource id value of the databricks access connector you created in step 3
+6. go inside databricks and create an external location for the container/storage account you created in step 1+step 2 using the credential you created in step 5
+7. finally, go inside databricks and creat a new catalog pointing to the external location you created in step 6
+
+use the python notebook: 03-Spark-SQL-External-Tables.py as reference
+
+
+if all you want to do is configure an external location (this location points to a location in your storage account where you store all your data), then follow the same steps above except for step 7
